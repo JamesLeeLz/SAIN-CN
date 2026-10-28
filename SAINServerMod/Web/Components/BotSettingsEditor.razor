@@ -3,6 +3,7 @@
 @using SAIN.Preset.Shared.BotSettings.SAINSettings
 @using SAINServerMod.Generators
 @using SAINServerMod.Utils
+@using SAIN.Preset.Shared.Localization
 @inject ISnackbar Snackbar
 @inject PresetGenerationService PresetGeneration
 
@@ -10,12 +11,12 @@
             SelectionMode="SelectionMode.SingleSelection" Variant="Variant.Text" Color="Color.Primary" Class="sain-section-chips mb-2">
     @foreach (var name in _sectionNames)
     {
-        <MudChip T="string" Value="@name" Text="@name" />
+        <MudChip T="string" Value="@name" Text="@SectionLabel(name)" />
     }
 </MudChipSet>
 
 <MudStack Row Spacing="3" AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Class="mb-3">
-    <MudSelect T="ESainWildSpawnType" Value="_botType" ValueChanged="OnBotChanged" Label="Bot type"
+    <MudSelect T="ESainWildSpawnType" Value="_botType" ValueChanged="OnBotChanged" Label="机器人类型"
                Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true" Style="min-width:260px;">
         @foreach (var bot in _filteredBots)
         {
@@ -23,11 +24,11 @@
         }
     </MudSelect>
 
-    <MudSelect T="ESainBotDifficulty" Value="_difficulty" ValueChanged="OnDifficultyChanged" Label="Difficulty"
+    <MudSelect T="ESainBotDifficulty" Value="_difficulty" ValueChanged="OnDifficultyChanged" Label="难度"
                Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true" Style="min-width:160px;">
         @foreach (var diff in _difficulties)
         {
-            <MudSelectItem T="ESainBotDifficulty" Value="diff">@diff</MudSelectItem>
+            <MudSelectItem T="ESainBotDifficulty" Value="diff">@DiffLabel(diff)</MudSelectItem>
         }
     </MudSelect>
 </MudStack>
@@ -39,18 +40,18 @@
 
         <MudDivider Class="my-3" />
 
-        <MudText Typo="Typo.subtitle2" Class="mb-1">Copy <b>@BotName</b> · <b>@_difficulty</b> settings to…</MudText>
+        <MudText Typo="Typo.subtitle2" Class="mb-1">将 <b>@BotName</b> · <b>@DiffLabel(_difficulty)</b> 的设置复制到……</MudText>
         <MudText Typo="Typo.caption" Class="spt-muted mb-2">
-            Overwrites the target slots with the values shown below. Personalities and gear stealth are not affected.
+            会用下方显示的值覆盖目标栏位。性格与装备隐蔽不受影响。
         </MudText>
         <MudStack Row Spacing="3" Wrap="Wrap.Wrap">
             <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary"
                        StartIcon="@Icons.Material.Outlined.ContentCopy" OnClick="CopyToAllDifficulties">
-                Every difficulty of @BotName
+                @BotName 的所有难度
             </MudButton>
             <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary"
                        StartIcon="@Icons.Material.Outlined.CopyAll" OnClick="CopyToAllBots">
-                Every bot type (@_difficulty)
+                所有机器人类型（@DiffLabel(_difficulty)）
             </MudButton>
         </MudStack>
     </MudPaper>
@@ -62,7 +63,7 @@
 }
 else
 {
-    <MudText Typo="Typo.caption" Class="spt-muted">No settings for this bot/difficulty combination.</MudText>
+    <MudText Typo="Typo.caption" Class="spt-muted">此机器人/难度组合没有设置项。</MudText>
 }
 
 @code {
@@ -89,6 +90,27 @@ else
     private string BotName
     {
         get { return _group?.Name ?? _botType.ToString(); }
+    }
+
+    // 只用于显示，筛选与持久化仍使用原始英文键值
+    private static string DiffLabel(ESainBotDifficulty difficulty)
+    {
+        return SainLoc.T(difficulty.ToString());
+    }
+
+    private static string SectionLabel(string section)
+    {
+        return section switch
+        {
+            "All" => "全部",
+            "Scavs" => "拾荒者",
+            "PMCs" => "PMC",
+            "Goons" => "三兄弟小队",
+            "Bosses" => "首领",
+            "Followers" => "跟班",
+            "Other" => "其他",
+            _ => section,
+        };
     }
 
     protected override void OnInitialized()
@@ -175,7 +197,7 @@ else
                 _group.Settings[key] = Clone(_settings);
             }
         }
-        Snackbar.Add($"Copied {BotName} · {_difficulty} to every difficulty of {BotName}.", Severity.Success);
+        Snackbar.Add($"已将 {BotName} · {DiffLabel(_difficulty)} 复制到 {BotName} 的所有难度。", Severity.Success);
         await OnChanged.InvokeAsync();
     }
 
@@ -194,7 +216,7 @@ else
                 count++;
             }
         }
-        Snackbar.Add($"Copied {BotName} · {_difficulty} to {count} other bot type(s).", Severity.Success);
+        Snackbar.Add($"已将 {BotName} · {DiffLabel(_difficulty)} 复制到 {count} 个其他机器人类型。", Severity.Success);
         await OnChanged.InvokeAsync();
     }
 }

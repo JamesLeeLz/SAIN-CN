@@ -1,79 +1,79 @@
-# Solarint's AI Modifications
+# Solarint 的 AI 修改模组
 
-A Bepinex plugin for Single-player Escape From Tarkov that replaces the combat AI of almost all NPCs.
+一个面向《逃离塔科夫》单人模式的 BepInEx 插件，替换几乎所有 NPC 的战斗 AI。
 
-## Major features
+## 主要特性
 
-- [Behavior and Decision System]: Bot decision trees replaced to immitate players with further depth and unpredictability.
-- [Dynamic Cover System]: Bots find and analyze colliders in their proximity to create cover points on any map. 
-	- All it needs is a suitable navmesh, a coordinate to take cover from, and colliders. 
-	- No pre-placed cover positions are used. 
-- [Multi-threaded Bot Vision Raycasting]: Bot vision is replaced with a multi-threaded function to improve performance, update rate, and accuracy. 
-- [Advanced Bot Movement]: Bots can vault, lean around corners while peeking, strafe, stutter-sprint, and jump. 
-- [Bot Personality System]: Different personalities of bots are assigned based on the quality/cost of their equipment and random chance. 
-	- These personalities dramatically affect their behavior and available actions - such as intentionally ratting and hiding, or rushing as fast as they can.
-- [In-Game GUI with Live Updates]: Press F6 by default to open up SAIN's in-game GUI bot editor allowing you to customize almost any aspect of bot behavior for any bot type or personality.
-	- When a player hits "Save and Export" in the GUI. All changes to bots are sent and updated immedietly, unless otherwise specificied for certain options that require raid/game restart.
-- [User Preset System]: All config options are tied to a "Preset" which can be shared and imported easily.
-- [Squad Coordination and Barks]: Groups of bots will intentionally coordinate to flank/suppress and yell out orders that reflect what they are thinking/doing. 
-- [Player Flashlight Detection]: Bots can see human player flashlights, giving them an estimated position when spotted. 
-	- Bots are affected by lights being shined in their eyes from close range, affecting their accuracy and vision.
-	- Bots can only see IR lights and lasers when using NVGs.
-	- When shining a white-light on a bot using NVGs at close range, they are "Dazzled" more intensely.
-- [Bot Suppression System]: Bots receive simulated suppression when bullets are flying near them, debuffing them in most of their stats - depending on the intensity and caliber of ammo fired.
-- [Bot Equipment Effects]: 
-	- Different gear and equipment will positively or negatively affect bot stats where it makes sense. 
-		- Such as a heavy helmet making their hearing worse, or a magnified optic improving their accuracy at far distances, but worsening it at close range.
-		- Their weapon build also has a dramatic affect on how they fire at an enemy, for example a bot using a meta-build M4A1 will be able to shoot full auto accurately from further away than a stock M4A1.
-		- The effects are pulled directly from their weapon's stats so it will automatically change depending on balancing. If you remove all recoil for your guns, bots will also have no recoil.
-- [Player Equipment Effects]: Some choices of gear by the player can positively or negatively affect their detection time and distance by AI dramatically.
-- [Simulated Recoil for Bots]: Bots will be affected by simulated recoil depending on their weapon build, the type of weapon being fired, and their own skill level.
-- [Improved Bot Vision]: More nuance and buffs/debuffs to roughly immitate how a real person spots enemies.
-	- Things like movement speed and crouch height have more affect on stealth.
-- [Sound Based Responses]: Most sounds that a player makes are now audible to AI, allowing them to make specific decisions if conditions are right.
-	- Such as bots rushing an enemy if they hear them healing.
-- [Bot Hearing Revamp]: Bots are much more nuanced in how they hear enemies, the distance a bot can hear things like footsteps is affected by their own health condition, movement, walls and obstacles between them, weather conditions.
+- [行为与决策系统]：重写机器人决策树，模仿玩家行为，并具备更深的层次感与不可预测性。
+- [动态掩体系统]：机器人会搜索并分析自身周围的碰撞体，在任意地图上实时生成掩体点位。
+	- 只需要合适的导航网格（NavMesh）、一个需要躲避的坐标，以及碰撞体即可。
+	- 不使用任何预先摆放的掩体点位。
+- [多线程视觉射线检测]：机器人视觉改用多线程计算，以提升性能、刷新频率与准确性。
+- [高级移动]：机器人可以翻越、探头时贴墙侧身、侧移、断续冲刺以及跳跃。
+- [机器人性格系统]：根据装备的品质/价值与随机概率，为机器人分配不同的性格。
+	- 这些性格会显著影响它们的行为与可用动作——例如故意躲藏伏击，或不顾一切地冲锋。
+- [游戏内 GUI 实时编辑]：默认按 F6 打开 SAIN 的游戏内机器人编辑器，几乎可以对任意机器人类型或性格的几乎所有行为细节进行自定义。
+	- 在 GUI 中点击「保存并导出」后，对机器人的所有改动会立即下发并生效；少数需要重开战局/重启游戏的选项除外。
+- [用户预设系统]：所有配置项都归属于一个「预设」，便于分享与导入。
+- [小队协同与语音]：成组的机器人会主动协同包抄/压制，并通过喊话来表达它们的想法与行动。
+- [玩家手电检测]：机器人能看到玩家手电的光，发现后即可估算你的位置。
+	- 近距离被手电直射时，机器人会受影响，精准度与视觉下降。
+	- 只有佩戴夜视仪时，机器人才能看到红外灯与激光。
+	- 近距离用白光手电照射佩戴夜视仪的机器人时，它们会「致盲」得更严重。
+- [压制系统]：子弹从身边飞过时机器人会受到模拟压制，大部分属性被削弱——削弱程度取决于火力强度与弹药口径。
+- [装备影响]：
+	- 不同装备会在合理范围内对机器人属性产生正面或负面影响。
+		- 例如重型头盔会削弱它们的听觉，而倍镜能提升远距离精准度、却降低近距离精准度。
+		- 武器改装也会显著影响开火表现，例如使用主流改法的 M4A1 机器人，其全自动精准射击距离会远超原厂 M4A1。
+		- 这些影响直接读取武器属性，因此会随平衡性调整自动变化。如果你把自己的枪改成零后坐力，机器人也会同样没有后坐力。
+- [玩家装备影响]：玩家的某些装备选择，会显著影响 AI 发现你的时间与距离。
+- [机器人模拟后坐力]：机器人会根据武器改装、开火武器类型以及自身技能等级，受到模拟后坐力影响。
+- [改进的机器人视觉]：更细腻的增益/减益，大致模拟真人发现敌人的方式。
+	- 例如移动速度、蹲下高度等，都会更明显地影响隐蔽性。
+- [声音响应]：玩家发出的大部分声音现在都会被 AI 听到，条件合适时它们会据此做出针对性决策。
+	- 例如听到你在治疗，机器人会立刻冲过来。
+- [机器人听觉重做]：机器人判断敌人方位的逻辑更细腻，脚步声的可听距离取决于自身健康状况、移动状态、两者之间的墙体与障碍物，以及天气情况。
 
-## Requirements
-- [BigBrain](https://hub.sp-tarkov.com/files/file/1219-bigbrain/) by DrakiaXYZ
-- [Waypoints](https://hub.sp-tarkov.com/files/file/1119-waypoints-expanded-navmesh/) by DrakiaXYZ
+## 前置要求
+- DrakiaXYZ 的 [BigBrain](https://hub.sp-tarkov.com/files/file/1219-bigbrain/)
+- DrakiaXYZ 的 [Waypoints](https://hub.sp-tarkov.com/files/file/1119-waypoints-expanded-navmesh/)
 
-## Installation
-1. Confirm you have properly chosen the correct version of SAIN for the version of SPT you have installed. SAIN can only load for with the specific EFT version it was built for.
-2. Install Dependencies listed above.
-3. Extract zip file contents into your SPT install directory.
-4. Done! If SAIN is installed and working, you can open the GUI in the main menu. (F6 by default)
+## 安装
+1. 确认你选择的 SAIN 版本与所安装的 SPT 版本匹配。SAIN 只能在与它编译时对应的 EFT 版本上加载。
+2. 安装上面列出的前置依赖。
+3. 将 zip 压缩包内容解压到你的 SPT 安装目录。
+4. 完成！如果 SAIN 安装正确并正常工作，你可以在主菜单打开 GUI。（默认按键 F6）
 
-## Contributing
-SAIN is an open source project, and I welcome anyone who wants to redesign, tweak, or add any features in the codebase.
+## 参与贡献
+SAIN 是开源项目，欢迎任何人重新设计、微调或为代码库添加新功能。
 
-## How It Works
-Escape from Tarkov's AI system works off a system with "Layers" of different behavior trees set at specific priorities. Using BigBrain, I have disabled and replaced bot "Combat Layers" with my own.
-Each Bot receives a "SAINComponent" upon being spawned by the game, this runs in parellel to the default "BotOwner" component.
-Similarly, for each of a bot's enemies, called "EnemyInfo"s - a SAIN "Enemy" instance is created that contains properties and data tracked and used by their SAINComponent. 
-Bot Decisions are calculated from a class instance within their "BotComponent". The priority of each decision is based on the heirarchy within the function. Currently that priority is hardcoded, and needs a generic system to add or remove decisions, and configure priorities.
+## 工作原理
+《逃离塔科夫》的 AI 系统由多层不同优先级的行为树组成。借助 BigBrain，我禁用了机器人原本的「战斗层」，并替换成自己实现的一套。
+每个机器人生成时都会获得一个「SAINComponent」，它与游戏默认的「BotOwner」组件并行运行。
+同样地，对机器人的每个敌人（称为「EnemyInfo」），都会创建一个 SAIN 的「Enemy」实例，其中保存并维护该敌人相关的属性与数据，供对应的 SAINComponent 使用。
+机器人的决策由「BotComponent」中的类实例计算得出，每个决策的优先级由函数内的层级决定。目前该优先级是硬编码的，还需要一套通用系统来增删决策与配置优先级。
 
-## Support SAIN's Development
-SAIN is a project of countless unpaid hours over the past years. 
-If you love the mod and want to financially support me, if can be done via my [Patreon Page](https://www.patreon.com/c/Solarint)
-I'm currently unemployed and seeking work doing Game AI Design and scripting. 
-I'm proficient in C# and Unity Scripting, self-taught with the assistance of the SPT community, and - based on SAIN's glowing reviews - I excel at designing scripts that make AI immersive and engaging to fight.
+## 支持 SAIN 的开发
+SAIN 是我过去数年间投入无数无偿工时做出来的项目。
+如果你喜欢这个模组并愿意在经济上支持我，可以通过我的 [Patreon 页面](https://www.patreon.com/c/Solarint) 赞助。
+我目前处于失业状态，正在寻找游戏 AI 设计与脚本编写方面的工作。
+我熟悉 C# 与 Unity 脚本，在 SPT 社区的帮助下自学成才；从 SAIN 获得的好评来看，我擅长设计能让 AI 更沉浸、更有交战乐趣的脚本。
 
-## SAIN's History
-SAIN is a first for many things for me. 
-I had 0 experience in coding or managing a project of this size when I started SAIN. 
-It originally started as a simple patch in Tarkov's code to manually swap the firerate on Bot Weapons to Semi-auto for enemies past 50 meters.
-I kept adding nuance and new features one by one until it grew into the slightly convoluted and overdesigned beast it is today!
-Because making SAIN was how I learned C# and coding in general, the quality of code can vary wildly, but I've replaced *most* of the ancient code by now.
-There are many classes that I created essentially just to see if I could, and I used them as learning experiences. 
-SAIN is very jank, in the classic style of some of my favorite games like S.T.A.L.K.E.R. and ARMA.
-It's also "Dynamic" in the sense that it is about 95% map/level agnostic, as long as the level has NavMesh to querry. 
-It should work perfectly with any future level or location revamp released in the game.
+## SAIN 的历史
+SAIN 对我来说是很多事情的「第一次」。
+刚开始做 SAIN 时，我在编程以及管理这种规模的项目上毫无经验。
+它最初只是塔科夫代码里的一段简单补丁：当敌人距离超过 50 米时，把机器人武器的射速手动切换为半自动。
+此后我一个接一个地加入细节与新功能，直到它长成如今这个略显复杂、过度设计的庞然大物！
+因为做 SAIN 正是我学习 C# 与编程的方式，代码质量参差不齐，不过现在我已经替换掉了*大部分*古老代码。
+有很多类我纯粹是「想试试能不能做到」而写出来的，并借此积累经验。
+SAIN 相当「土法上马」，这与我喜爱的《S.T.A.L.K.E.R.》和《ARMA》等游戏一脉相承。
+它同时也是「动态」的：约 95% 的内容不依赖具体地图/关卡，只要关卡有可供查询的 NavMesh 即可运行。
+未来游戏推出任何新地图或地点重制，它都应该能完美适配。
 
-## SAIN Design Principles
-SAIN primary focus is to make challenging but fair bots by immitating player tactics in Tactical Shooters. 
-It is designed in such a way that all bots are subject to strict limitations, and make decisions based upon what a player might reasonably be able to see/hear. 
-With the exception of minor features that prioritize optimization and performance, bot behavior does not cheat nor receive any information on their enemy that couldn't reasonably be communicated between two players. 
-With that limitation, bots can perform a large variety of decisions that players tend to do in player vs player fight. Many of these are inspired by my own experience playing tactical shooters for over a decade. 
-SAIN is also built with user customization in mind. As an individual with limited resources, there are several features within SAIN that are set up with the intention that power users can tweak and share "Presets" - essentially mods for SAIN.
-Most internal configuration for AI can be changed (writing documentation for all these is tedious work), and changes made within the GUI take effect right away to see the differences live.
+## SAIN 的设计原则
+SAIN 的核心目标，是通过模仿战术射击游戏中玩家的战术，打造既有挑战性又公平的机器人。
+它的设计让所有机器人都受严格限制，只能根据玩家「合理可见/可听」的信息来做决策。
+除了少数以优化与性能为优先的小功能外，机器人的行为不作弊，也不会获取任何无法在两名玩家之间合理传递的敌人信息。
+在这一限制下，机器人仍能做出玩家在 PvP 中常用的大量决策，其中许多灵感来自我十多年游玩战术射击游戏的经验。
+SAIN 在设计时也充分考虑了用户自定义。作为一个资源有限的人，SAIN 中有不少功能就是为「进阶玩家可以自行调整并分享预设」而准备的——预设本质上就是 SAIN 的模组。
+AI 的大部分内部配置都可以修改（为所有配置写文档是件苦差事），并且在 GUI 中所做的改动会立刻生效，方便你实时对比效果。

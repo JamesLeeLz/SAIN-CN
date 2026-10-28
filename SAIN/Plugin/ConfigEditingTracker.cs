@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using SAIN.Attributes;
@@ -76,7 +76,7 @@ internal static class ConfigEditingTracker
     private static void ClearAndCreateStringBuilder()
     {
         _stringBuilder.Clear();
-        _stringBuilder.AppendLine($"Unsaved Config Options: Count: [{EditedConfigValues.Count}]");
+        _stringBuilder.AppendLine($"未保存的配置项：数量 [{EditedConfigValues.Count}]");
         foreach (var item in EditedConfigValues)
         {
             AddToStringBuilder(item.Key, item.Value);

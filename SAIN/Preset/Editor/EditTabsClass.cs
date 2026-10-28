@@ -13,36 +13,36 @@ internal class EditTabsClass
         {
             {
                 EEditorTab.Home,
-                new TabClass { Name = "Home", ToolTip = "Select preset and modify global SAIN settings." }
+                new TabClass { Name = "主页", ToolTip = "选择预设，修改 SAIN 全局设置。" }
             },
             {
                 EEditorTab.BotSettings,
                 new TabClass
                 {
-                    Name = "Bot Settings",
+                    Name = "机器人设置",
                     ToolTip =
-                        "Modify Settings that are unique to particular bot types for individual difficulties. Difficulty is determined on spawn by EFT, and is changed by selecting the Difficulty value when starting a raid. As Online is a mix of all difficulties.",
+                        "按难度分别修改特定机器人类型的专属设置。难度由 EFT 在生成时决定，并在开始战局选择难度时改变；Online 为所有难度的混合。",
                 }
             },
             {
                 EEditorTab.Personalities,
                 new TabClass
                 {
-                    Name = "Personalities",
+                    Name = "性格",
                     ToolTip =
-                        "Modify Individual Personality settings for how they are assigned to bots, and what each personality does for a bot's behavior.",
+                        "修改各性格的分配方式，以及每种性格对机器人行为的影响。",
                 }
             },
             {
                 EEditorTab.EquipmentStealth,
-                new TabClass { Name = "Equipment Stealth", ToolTip = "Modify the stealth value that certain pieces of equipment provide." }
+                new TabClass { Name = "装备隐蔽", ToolTip = "修改特定装备提供的隐蔽值。" }
             },
             {
                 EEditorTab.Advanced,
                 new TabClass
                 {
-                    Name = "Advanced Options",
-                    ToolTip = "Edit at your own risk. Enable additional advanced config options here",
+                    Name = "高级选项",
+                    ToolTip = "自行承担风险。在这里启用额外的高级配置项。",
                 }
             },
         };

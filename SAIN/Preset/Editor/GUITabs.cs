@@ -51,8 +51,8 @@ public static class GUITabs
         BotSettingsEditor.ShowAllSettingsGUI(
             SAINPlugin.LoadedPreset.GlobalSettings,
             out bool newEdit,
-            "Global Settings",
-            $"Server preset '{SAINPlugin.LoadedPreset.Info.Name}'",
+            "全局设置",
+            $"服务器预设 '{SAINPlugin.LoadedPreset.Info.Name}'",
             35f,
             out bool saved
         );
@@ -82,8 +82,8 @@ public static class GUITabs
         if (ConfigEditingTracker.UnsavedChanges)
         {
             BuilderClass.Alert(
-                "Click Save to export changes, and send changes to bots if in-game",
-                "YOU HAVE UNSAVED CHANGES!",
+                "点击保存以导出改动，战局中会同时同步给机器人",
+                "有未保存的改动！",
                 35f,
                 ColorNames.DarkRed
             );
@@ -93,7 +93,7 @@ public static class GUITabs
             BuilderClass.Alert(null, null, 25f, null);
         }
 
-        if (Button("Save and Export", ConfigEditingTracker.GetUnsavedValuesString(), EUISoundType.InsuranceInsured, Height(25f)))
+        if (Button("保存并导出", ConfigEditingTracker.GetUnsavedValuesString(), EUISoundType.InsuranceInsured, Height(25f)))
         {
             SAINPresetClass.ExportAll(SAINPlugin.LoadedPreset);
         }
@@ -108,17 +108,17 @@ public static class GUITabs
     {
         Space(spacing);
 
-        _forceDecisionMenuOpen = BuilderClass.ExpandableMenu("Force SAIN Bot Decisions", _forceDecisionMenuOpen);
+        _forceDecisionMenuOpen = BuilderClass.ExpandableMenu("强制 SAIN 机器人决策", _forceDecisionMenuOpen);
         if (_forceDecisionMenuOpen)
         {
             Space(spacing);
 
-            ForceSoloOpen = BuilderClass.ExpandableMenu("Force Solo Decision", ForceSoloOpen);
+            ForceSoloOpen = BuilderClass.ExpandableMenu("强制单人决策", ForceSoloOpen);
             if (ForceSoloOpen)
             {
                 Space(spacing / 2f);
 
-                if (Button("Reset"))
+                if (Button("重置"))
                 {
                     SAINPlugin.ForceSoloDecision = ECombatDecision.None;
                 }
@@ -133,12 +133,12 @@ public static class GUITabs
 
             Space(spacing);
 
-            ForceSquadOpen = BuilderClass.ExpandableMenu("Force Squad Decision", ForceSquadOpen);
+            ForceSquadOpen = BuilderClass.ExpandableMenu("强制小队决策", ForceSquadOpen);
             if (ForceSquadOpen)
             {
                 Space(spacing / 2f);
 
-                if (Button("Reset"))
+                if (Button("重置"))
                 {
                     SAINPlugin.ForceSquadDecision = ESquadDecision.None;
                 }
@@ -153,12 +153,12 @@ public static class GUITabs
 
             Space(spacing);
 
-            ForceSelfOpen = BuilderClass.ExpandableMenu("Force Self Decision", ForceSelfOpen);
+            ForceSelfOpen = BuilderClass.ExpandableMenu("强制自身行动", ForceSelfOpen);
             if (ForceSelfOpen)
             {
                 Space(spacing / 2f);
 
-                if (Button("Reset"))
+                if (Button("重置"))
                 {
                     SAINPlugin.ForceSelfDecision = ESelfActionType.None;
                 }
@@ -194,11 +194,11 @@ public static class GUITabs
     private static void ForceTalk(int spacing)
     {
         Space(spacing);
-        _forceTalkMenuOpen = BuilderClass.ExpandableMenu("Force Bots to Say Phrase", _forceTalkMenuOpen);
+        _forceTalkMenuOpen = BuilderClass.ExpandableMenu("强制机器人说指定语音", _forceTalkMenuOpen);
         if (_forceTalkMenuOpen)
         {
             Space(5);
-            _forceTagStatusToggle = Toggle(_forceTagStatusToggle, "Force ETagStatus for Phrase");
+            _forceTagStatusToggle = Toggle(_forceTagStatusToggle, "强制语音的 ETagStatus");
             if (_forceTagStatusToggle)
             {
                 ETagStatus[] statuses = EnumValues.GetEnum<ETagStatus>();
@@ -214,9 +214,9 @@ public static class GUITabs
                 }
             }
             Space(5);
-            _withGroupDelay = Toggle(_withGroupDelay, "With Group Delay?");
+            _withGroupDelay = Toggle(_withGroupDelay, "带小队延迟？");
             Space(5);
-            Label("Say Phrase");
+            Label("播放语音");
             EPhraseTrigger[] triggers = EnumValues.GetEnum<EPhraseTrigger>();
             for (int i = 0; i < triggers.Length; i++)
             {

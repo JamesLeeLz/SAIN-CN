@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.Serialization;
 using SAIN.Preset.Shared.Attributes;
+using SAIN.Preset.Shared.Localization;
 
 namespace SAINServerMod.Web.Reflection;
 
@@ -50,10 +51,10 @@ public sealed class SainMeta
 
         return new SainMeta
         {
-            Name = name,
-            Description = description,
-            Category = member.GetCustomAttribute<CategoryAttribute>()?.Value ?? "General",
-            Section = member.GetCustomAttribute<SectionAttribute>()?.Value,
+            Name = SainLoc.T(name),
+            Description = SainLoc.T(description),
+            Category = SainLoc.T(member.GetCustomAttribute<CategoryAttribute>()?.Value) ?? "其他",
+            Section = SainLoc.T(member.GetCustomAttribute<SectionAttribute>()?.Value),
             HasRange = range != null,
             Min = range?.Min ?? 0f,
             Max = range?.Max ?? 100f,

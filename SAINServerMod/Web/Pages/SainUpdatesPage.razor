@@ -5,7 +5,7 @@
 @using SAINServerMod.Web.Updates
 @inject GitHubReleaseService ReleaseService
 
-<PageTitle>SAIN Updates</PageTitle>
+<PageTitle>SAIN 更新</PageTitle>
 <HeadContent>
     <link rel="stylesheet" href="/SAIN/css/sain.css" />
 </HeadContent>
@@ -21,12 +21,12 @@
                         <MudIcon Icon="@Icons.Material.Filled.SystemUpdateAlt" Color="Color.Warning" Size="Size.Large" />
                     </div>
                     <div>
-                        <MudText Typo="Typo.h5" Class="spt-title">Updates</MudText>
-                        <MudText Typo="Typo.caption" Class="spt-muted">You are running SAIN v@(ReleaseService.CurrentVersion).</MudText>
+                        <MudText Typo="Typo.h5" Class="spt-title">更新</MudText>
+                        <MudText Typo="Typo.caption" Class="spt-muted">当前运行的 SAIN 版本为 v@(ReleaseService.CurrentVersion)。</MudText>
                     </div>
                 </MudStack>
                 <MudButton OnClick="OnRefreshClicked" Disabled="@(ReleaseService.State == ReleaseFeedState.Loading)"
-                           Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Refresh">Refresh</MudButton>
+                           Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Refresh">刷新</MudButton>
             </MudStack>
         </MudPaper>
 
@@ -36,13 +36,13 @@
                 <MudPaper Elevation="0" Class="spt-panel sain-update-banner pa-4">
                     <MudIcon Icon="@Icons.Material.Filled.SystemUpdateAlt" Color="Color.Warning" Size="Size.Large" />
                     <div class="sain-update-banner-copy">
-                        <strong>@latest.DisplayTitle is available</strong>
-                        <span class="spt-muted">You are running v@(ReleaseService.CurrentVersion).</span>
+                        <strong>@latest.DisplayTitle 现已可用</strong>
+                        <span class="spt-muted">当前运行的版本为 v@(ReleaseService.CurrentVersion)。</span>
                     </div>
                     @if (!string.IsNullOrEmpty(latest.HtmlUrl))
                     {
                         <MudButton Href="@latest.HtmlUrl" Target="_blank" Variant="Variant.Filled" Color="Color.Warning"
-                                   EndIcon="@Icons.Material.Filled.OpenInNew">Get it</MudButton>
+                                   EndIcon="@Icons.Material.Filled.OpenInNew">前往获取</MudButton>
                     }
                 </MudPaper>
             }
@@ -51,14 +51,14 @@
             {
                 <MudPaper Elevation="0" Class="spt-panel pa-4 sain-release-status">
                     <MudProgressCircular Indeterminate="true" Size="Size.Small" Color="Color.Warning" />
-                    <span>Checking GitHub for releases…</span>
+                    <span>正在从 GitHub 检查发布版本…</span>
                 </MudPaper>
             }
             else if (ReleaseService.State == ReleaseFeedState.Unavailable)
             {
                 <MudPaper Elevation="0" Class="spt-panel pa-4 sain-release-status">
                     <MudIcon Icon="@Icons.Material.Filled.CloudOff" Color="Color.Default" />
-                    <span>Couldn't reach GitHub. Release history will show up once this server is online.</span>
+                    <span>无法连接 GitHub。该服务器恢复在线后将显示发布历史。</span>
                 </MudPaper>
             }
             else
@@ -72,7 +72,7 @@
                                 <div class="sain-timeline-header">
                                     <div>
                                         <strong>@release.DisplayTitle</strong>
-                                        <span class="spt-muted">@(release.PublishedAt?.ToString("d MMMM yyyy") ?? "Unreleased")</span>
+                                        <span class="spt-muted">@(release.PublishedAt?.ToString("yyyy年M月d日") ?? "未发布")</span>
                                     </div>
                                     <div class="sain-timeline-tags">
                                         @foreach (var tag in ReleaseDirectives.ParseCompatibility(release.Body))
@@ -83,16 +83,16 @@
                                         }
                                         @if (IsRunningVersion(release))
                                         {
-                                            <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Outlined">Running</MudChip>
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Outlined">当前版本</MudChip>
                                         }
                                         @if (release.Prerelease)
                                         {
-                                            <MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">Pre-release</MudChip>
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">预发布</MudChip>
                                         }
                                         @if (!string.IsNullOrEmpty(release.HtmlUrl))
                                         {
                                             <MudIconButton Href="@release.HtmlUrl" Target="_blank" Size="Size.Small"
-                                                           Icon="@Icons.Material.Filled.OpenInNew" Title="View on GitHub" />
+                                                           Icon="@Icons.Material.Filled.OpenInNew" Title="在 GitHub 上查看" />
                                         }
                                     </div>
                                 </div>

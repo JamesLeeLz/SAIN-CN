@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using SAIN.Editor.Util;
 using SAIN.Helpers;
 using UnityEngine;
@@ -19,11 +19,78 @@ public static class StylesClass
 
     private static readonly Dictionary<Style, GUIStyle> Styles = new();
 
+    private static Font _cjkFont;
+
+    /// <summary>
+    /// Unity's built-in IMGUI font does not contain CJK glyphs, so Chinese text would render
+    /// as empty boxes. Load a Dynamic OS font that covers Simplified Chinese instead.
+    /// </summary>
+    public static Font CJKFont
+    {
+        get { return _cjkFont ??= LoadCJKFont(); }
+    }
+
+    private static Font LoadCJKFont()
+    {
+        string[] candidates =
+        {
+            "Microsoft YaHei UI",
+            "Microsoft YaHei",
+            "SimHei",
+            "SimSun",
+            "Noto Sans CJK SC",
+            "Source Han Sans SC",
+            "WenQuanYi Micro Hei",
+            "Arial Unicode MS",
+        };
+
+        try
+        {
+            string[] installed = Font.GetOSInstalledFontNames();
+
+            foreach (string fontName in candidates)
+            {
+                if (System.Array.IndexOf(installed, fontName) >= 0)
+                {
+                    Font font = Font.CreateDynamicFontFromOSFont(fontName, 14);
+                    if (font != null)
+                    {
+                        return font;
+                    }
+                }
+            }
+
+            return Font.CreateDynamicFontFromOSFont(candidates, 14);
+        }
+        catch (System.Exception ex)
+        {
+            Logger.LogWarning($"Failed to load a CJK capable font, GUI text may not render: {ex.Message}");
+            return null;
+        }
+    }
+
+    private static void ApplyCJKFont(GUIStyle style)
+    {
+        Font font = CJKFont;
+        if (font == null || style == null)
+        {
+            return;
+        }
+
+        style.font = font;
+        if (style.fontSize <= 0)
+        {
+            style.fontSize = 14;
+        }
+    }
+
     public static GUIStyle GetStyle(Style key)
     {
         if (!Styles.ContainsKey(key))
         {
-            Styles.Add(key, new GUIStyle(GUI.skin.box));
+            GUIStyle style = new(GUI.skin.box);
+            ApplyCJKFont(style);
+            Styles.Add(key, style);
         }
         return Styles[key];
     }
@@ -44,6 +111,8 @@ public static class StylesClass
         }
 
         DynamicStyle dynamicStyle = DynamicStyles[key];
+        ApplyCJKFont(dynamicStyle.Normal);
+        ApplyCJKFont(dynamicStyle.Active);
         return active ? dynamicStyle.Active : dynamicStyle.Normal;
     }
 
@@ -303,6 +372,11 @@ public static class StylesClass
         Styles.Add(Style.verticalSliderThumb, VerticalSliderThumbStyle);
         Styles.Add(Style.blankbox, BlankBackgroundStyle);
         Styles.Add(Style.tooltip, ToolTipStyle);
+
+        foreach (GUIStyle style in Styles.Values)
+        {
+            ApplyCJKFont(style);
+        }
 
         foreach (var style in EnumValues.GetEnum<Style>())
         {

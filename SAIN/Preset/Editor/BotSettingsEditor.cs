@@ -19,12 +19,12 @@ public static class BotSettingsEditor
 
         Space(10);
 
-        Label("Search", Width(125f), Height(height));
+        Label("搜索", Width(125f), Height(height));
 
         var container = SettingsContainers.GetContainer(settings.GetType(), name);
         container.SearchPattern = TextField(container.SearchPattern, null, Width(250), Height(height));
 
-        if (Button("Clear", EUISoundType.MenuContextMenu, Width(80), Height(height)))
+        if (Button("清除", EUISoundType.MenuContextMenu, Width(80), Height(height)))
         {
             container.SearchPattern = string.Empty;
         }
@@ -34,8 +34,8 @@ public static class BotSettingsEditor
         if (ConfigEditingTracker.UnsavedChanges)
         {
             BuilderClass.Alert(
-                "Click Save to export changes, and send changes to bots if in-game",
-                "YOU HAVE UNSAVED CHANGES!",
+                "点击保存以导出改动，战局中会同时同步给机器人",
+                "有未保存的改动！",
                 height,
                 ColorNames.DarkRed
             );
@@ -45,7 +45,7 @@ public static class BotSettingsEditor
             BuilderClass.Alert(null, null, height, null);
         }
 
-        Saved = Button("Save and Export", ConfigEditingTracker.GetUnsavedValuesString(), EUISoundType.InsuranceInsured, Height(height));
+        Saved = Button("保存并导出", ConfigEditingTracker.GetUnsavedValuesString(), EUISoundType.InsuranceInsured, Height(height));
 
         EndHorizontal();
 
@@ -60,7 +60,7 @@ public static class BotSettingsEditor
     {
         BeginHorizontal();
         container.Open = BuilderClass.ExpandableMenu(container.Name, container.Open, null, height);
-        if (Button("Clear", "Clear Selected Options in this Menu", EFT.UI.EUISoundType.MenuDropdownSelect, Width(100), Height(height)))
+        if (Button("清除", "清除此菜单中已选中的选项", EFT.UI.EUISoundType.MenuDropdownSelect, Width(100), Height(height)))
         {
             container.SelectedCategories.Clear();
             foreach (var category in container.Categories)

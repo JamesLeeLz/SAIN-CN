@@ -13,7 +13,7 @@
 @inject NavigationManager Nav
 @inject ISnackbar Snackbar
 
-<PageTitle>SAIN Server Settings</PageTitle>
+<PageTitle>SAIN 服务器设置</PageTitle>
 <HeadContent>
     <link rel="stylesheet" href="/SAIN/css/sain.css" />
 </HeadContent>
@@ -28,31 +28,31 @@
                         <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" Color="Color.Warning" Size="Size.Large" />
                     </div>
                     <div>
-                        <MudText Typo="Typo.h5" Class="spt-title">Server Settings</MudText>
-                        <MudText Typo="Typo.caption" Class="spt-muted">Admin controls for SAIN presets and in-game editing.</MudText>
+                        <MudText Typo="Typo.h5" Class="spt-title">服务器设置</MudText>
+                        <MudText Typo="Typo.caption" Class="spt-muted">管理 SAIN 预设与游戏内编辑。</MudText>
                     </div>
                 </MudStack>
-                <MudButton Variant="Variant.Filled" Color="Color.Warning" StartIcon="@Icons.Material.Filled.Save" OnClick="SaveAsync">Save</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Warning" StartIcon="@Icons.Material.Filled.Save" OnClick="SaveAsync">保存</MudButton>
             </MudStack>
         </MudPaper>
 
         <div class="sain-settings-grid">
             <MudPaper Elevation="0" Class="spt-panel pa-4">
-                <MudText Typo="Typo.subtitle1" Class="spt-title mb-1">Presets</MudText>
+                <MudText Typo="Typo.subtitle1" Class="spt-title mb-1">预设</MudText>
                 <MudStack Spacing="3">
                     <div>
-                        <MudText Typo="Typo.overline" Class="spt-muted mb-1">Available default presets</MudText>
-                        <MudText Typo="Typo.caption" Class="spt-muted d-block mb-2">Turn individual defaults off to hide them from players in-game.</MudText>
+                        <MudText Typo="Typo.overline" Class="spt-muted mb-1">可用的默认预设</MudText>
+                        <MudText Typo="Typo.caption" Class="spt-muted d-block mb-2">关闭单个默认预设即可在游戏内向玩家隐藏。</MudText>
                         @if (IsForced)
                         {
                             <MudAlert Severity="Severity.Info" Variant="Variant.Outlined" Dense="true" Class="mb-2">
-                                A preset is forced below, so hiding individual defaults has no effect while a force is set.
+                                下方已强制指定预设，因此在强制生效期间隐藏单个默认预设不会产生效果。
                             </MudAlert>
                         }
                         else if (!HasCustomPresets)
                         {
                             <MudAlert Severity="Severity.Info" Variant="Variant.Outlined" Dense="true" Class="mb-2">
-                                Players always need at least one preset, so the last available one can't be turned off. Add a custom preset to hide more.
+                                玩家始终至少需要一个预设，因此最后一个可用预设无法关闭。添加自定义预设即可隐藏更多。
                             </MudAlert>
                         }
                         <div class="sain-toggle-list @(IsForced ? "sain-toggle-list-disabled" : null)">
@@ -68,36 +68,36 @@
                     </div>
                     <MudDivider />
                     <div>
-                        <MudSelect T="string" Value="ForcedValue" ValueChanged="OnForcedChanged" Label="Force a preset for all players"
+                        <MudSelect T="string" Value="ForcedValue" ValueChanged="OnForcedChanged" Label="为所有玩家强制指定预设"
                                    Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true" Style="max-width:360px;">
-                            <MudSelectItem T="string" Value="@NoneOption">Not forced (players choose)</MudSelectItem>
+                            <MudSelectItem T="string" Value="@NoneOption">不强制（由玩家选择）</MudSelectItem>
                             @foreach (var item in _presets)
                             {
-                                <MudSelectItem T="string" Value="@item.Name">@item.Name @(item.IsCustom ? "(custom)" : "(default)")</MudSelectItem>
+                                <MudSelectItem T="string" Value="@item.Name">@item.Name @(item.IsCustom ? "（自定义）" : "（默认）")</MudSelectItem>
                             }
                         </MudSelect>
                         <MudText Typo="Typo.caption" Class="spt-muted">
-                            When set, every player is locked onto this preset and can't change it in-game.
+                            设置后，所有玩家将被锁定到该预设，无法在游戏内更改。
                         </MudText>
                     </div>
                 </MudStack>
             </MudPaper>
 
             <MudPaper Elevation="0" Class="spt-panel pa-4">
-                <MudText Typo="Typo.subtitle1" Class="spt-title mb-1">In-game editing</MudText>
+                <MudText Typo="Typo.subtitle1" Class="spt-title mb-1">游戏内编辑</MudText>
                 <MudStack Spacing="3">
                     <div>
-                        <MudSwitch T="bool" @bind-Value="ServerConfig.Config.AllowClientEditing" Color="Color.Primary" Label="Allow all players to edit presets" />
+                        <MudSwitch T="bool" @bind-Value="ServerConfig.Config.AllowClientEditing" Color="Color.Primary" Label="允许所有玩家编辑预设" />
                         <MudText Typo="Typo.caption" Class="spt-muted">
-                            When off, only the players allowlisted below can save changes from the in-game editor.
+                            关闭时，只有下方允许列表中的玩家才能从游戏内编辑器保存更改。
                         </MudText>
                     </div>
                     <MudDivider />
                     <div>
-                        <MudText Typo="Typo.overline" Class="spt-muted mb-1">Allowlist</MudText>
+                        <MudText Typo="Typo.overline" Class="spt-muted mb-1">允许列表</MudText>
                         @if (_profiles.Count == 0)
                         {
-                            <div class="sain-empty-inline"><MudText Typo="Typo.body2" Class="spt-muted">No profiles found on this server.</MudText></div>
+                            <div class="sain-empty-inline"><MudText Typo="Typo.body2" Class="spt-muted">此服务器上未找到任何档案。</MudText></div>
                         }
                         else
                         {
@@ -116,7 +116,7 @@
                             </div>
                             @if (ServerConfig.Config.AllowClientEditing)
                             {
-                                <MudText Typo="Typo.caption" Class="spt-muted">Editing is open to everyone, so the allowlist is inactive.</MudText>
+                                <MudText Typo="Typo.caption" Class="spt-muted">编辑权限已对所有人开放，因此允许列表不生效。</MudText>
                             }
                         }
                     </div>
@@ -231,6 +231,6 @@
     {
         await ServerConfig.SaveAsync();
         await PresetSync.BroadcastPresetChanged(string.Empty, EPresetSyncChange.ConfigChanged);
-        Snackbar.Add("Server settings saved. Connected players will update live.", Severity.Success);
+        Snackbar.Add("服务器设置已保存。已连接的玩家将实时更新。", Severity.Success);
     }
 }

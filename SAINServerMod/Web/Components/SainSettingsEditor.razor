@@ -2,7 +2,7 @@
 
 @if (Target == null)
 {
-    <MudText Typo="Typo.caption" Class="spt-muted">Nothing to edit.</MudText>
+    <MudText Typo="Typo.caption" Class="spt-muted">没有可编辑的内容。</MudText>
 }
 else
 {
@@ -83,6 +83,8 @@ else
 
     private bool ShowCategoryHeader(string name)
     {
-        return Categories.Count > 1 || !string.Equals(name, "General", StringComparison.Ordinal);
+        // 只有一个分类时，如果这个分类没有实际名字（未标注 Category 特性，后端兜底为 General / 其他），就不显示表头。
+        bool unnamed = string.Equals(name, "General", StringComparison.Ordinal) || string.Equals(name, "其他", StringComparison.Ordinal);
+        return Categories.Count > 1 || !unnamed;
     }
 }

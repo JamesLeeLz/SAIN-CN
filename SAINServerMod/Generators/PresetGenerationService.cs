@@ -40,15 +40,15 @@ public sealed class PresetGenerationService(
 
     private static readonly DefaultPreset[] _defaults =
     [
-        new(SAINDifficulty.easy, "Baby Bots", "Bots react slowly and are incredibly inaccurate."),
-        new(SAINDifficulty.lesshard, "Less Difficult", "Bots react more slowly, and are less accurate than usual."),
-        new(SAINDifficulty.hard, "Default", "Bots are difficult but fair, the way SAIN was meant to played."),
-        new(SAINDifficulty.harderpmcs, "Default with Harder PMCs", "Default Settings, but PMCs are harder than normal."),
-        new(SAINDifficulty.veryhard, "I Like Pain", "Bots react faster, are more accurate, and can see further."),
+        new(SAINDifficulty.easy, "Baby Bots", "机器人反应迟缓，并且极不精准。"),
+        new(SAINDifficulty.lesshard, "Less Difficult", "机器人反应较慢，精准度也低于平时。"),
+        new(SAINDifficulty.hard, "Default", "机器人有难度但公平，这是 SAIN 设计时的游玩方式。"),
+        new(SAINDifficulty.harderpmcs, "Default with Harder PMCs", "默认设置，但 PMC 比平常更难。"),
+        new(SAINDifficulty.veryhard, "I Like Pain", "机器人反应更快、更精准，视野也更远。"),
         new(
             SAINDifficulty.deathwish,
             "Death Wish",
-            "Prepare To Die. Bots have almost no scatter, get less recoil from their weapon while shooting, are more accurate, and react deadly fast."
+            "准备受死吧。机器人几乎没有散布，开火时武器后坐力更小，更精准，反应也极快。"
         ),
     ];
 

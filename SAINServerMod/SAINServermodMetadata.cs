@@ -22,5 +22,5 @@ public sealed record SAINServermodMetadata : IModMetadata, IModBlazorMetadata
     public bool HasPrepatcher { get; init; } = false;
     public string? WWWRootUrl { get; init; } = "SAIN";
     public string? HomePage { get; init; } = "/sain/presets";
-    public string? HomePageDescription { get; init; } = "Edit various SAIN settings from your browser.";
+    public string? HomePageDescription { get; init; } = "在浏览器中编辑 SAIN 的各项设置。";
 }

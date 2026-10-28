@@ -37,8 +37,8 @@ public static class BotSelectionClass
         BeginHorizontal();
         FlexibleSpace();
         string toolTip =
-            $"Apply Values set below to selected Bot Type. "
-            + $"Saves edited values to the SAIN server for preset '{SAINPlugin.LoadedPreset.Info.Name}'";
+            $"将下方数值应用到所选机器人类型。"
+            + $"改动会保存到 SAIN 服务器端（预设 '{SAINPlugin.LoadedPreset.Info.Name}'）";
         if (BuilderClass.SaveChanges(ConfigEditingTracker.GetUnsavedValuesString(), 35f))
         {
             SAINPresetClass.ExportAll(SAINPlugin.LoadedPreset);
@@ -81,17 +81,17 @@ public static class BotSelectionClass
         FlexibleSpace();
         EndHorizontal();
         Space(3f);
-        if (Button("Clear Bot Types", "Clear all selected bot types", EUISoundType.ButtonBottomBarClick))
+        if (Button("清除机器人类型", "清除所有已选中的机器人类型", EUISoundType.ButtonBottomBarClick))
         {
             SelectedBotTypes.Clear();
         }
         Space(3f);
         BeginHorizontal();
-        Label("Difficulties", "Select which difficulties you wish to modify.", Height(25));
+        Label("难度", "选择你想修改的难度。", Height(25));
         Space(3f);
         ModifyLists.AddOrRemove(SelectedDifficulties, out bool newEdit, 4, 1200f, 35f);
         Space(3f);
-        if (Button("Clear Difficulties", "Clear all selected difficulties", null, Height(25f), Width(150f)))
+        if (Button("清除难度", "清除所有已选中的难度", null, Height(25f), Width(150f)))
         {
             SelectedDifficulties.Clear();
         }
@@ -123,16 +123,16 @@ public static class BotSelectionClass
         {
             if (SelectedBotTypes.Count == 0)
             {
-                Box("No Bot Types Selected, please select at least one above.");
+                Box("未选择机器人类型，请先在上方选择至少一个。");
             }
             else
             {
-                Box("No Bot Difficulties Selected, please select at least one above.");
+                Box("未选择难度，请先在上方选择至少一个。");
             }
             return;
         }
 
-        var container = SettingsContainers.GetContainer(typeof(SAINSettingsClass), "Select Options to Edit");
+        var container = SettingsContainers.GetContainer(typeof(SAINSettingsClass), "选择要编辑的选项");
         string search = BuilderClass.SearchBox(container);
 
         try

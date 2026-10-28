@@ -78,12 +78,12 @@ public class SAINPlugin : BaseUnityPlugin
     private void BindConfigs()
     {
         string category = "SAIN Editor";
-        OpenEditorButton = Config.Bind(category, "Open Editor", false, "Opens the Editor on press");
+        OpenEditorButton = Config.Bind(category, "Open Editor", false, "按下后打开编辑器");
         OpenEditorConfigEntry = Config.Bind(
             category,
             "Open Editor Shortcut",
             new KeyboardShortcut(KeyCode.F6),
-            "The keyboard shortcut that toggles editor"
+            "用于切换编辑器的快捷键"
         );
     }
 

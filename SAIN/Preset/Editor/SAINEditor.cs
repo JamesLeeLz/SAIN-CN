@@ -110,7 +110,7 @@ public static class SAINEditor
 
             CursorSettings.SetUnlockCursor(0, true);
             GUIUtility.ScaleAroundPivot(ScaledPivot, Vector2.zero);
-            MainWindow = GUI.Window(0, MainWindow, MainWindowFunc, "SAIN AI Settings Editor", GetStyle(Style.window));
+            MainWindow = GUI.Window(0, MainWindow, MainWindowFunc, "SAIN AI 设置编辑器", GetStyle(Style.window));
             UnityInput.Current.ResetInputAxes();
             ConfigEditingTracker.Update();
         }
@@ -141,7 +141,7 @@ public static class SAINEditor
         GUI.DrawTexture(DragRect, DragBackgroundTexture, ScaleMode.StretchToFill, true, 0);
         GUI.Box(
             DragRect,
-            $"SAIN {SAINVersionInfo.SAINVersion} GUI Editor | Preset: {SAINPlugin.LoadedPreset.Info.Name}",
+            $"SAIN {SAINVersionInfo.SAINVersion} GUI 编辑器 | 预设：{SAINPlugin.LoadedPreset.Info.Name}",
             GetStyle(Style.dragBar)
         );
         GUI.DragWindow(DragRect);
@@ -150,8 +150,8 @@ public static class SAINEditor
     public static string ExceptionString = string.Empty;
 
     private static readonly GUIContent SaveContent = new(
-        "Save All Changes",
-        $"Save all changes to the SAIN server mod for preset '{SAINPlugin.LoadedPreset.Info.Name}'"
+        "保存所有改动",
+        $"将所有改动保存到 SAIN 服务器端（预设 '{SAINPlugin.LoadedPreset.Info.Name}'）"
     );
 
     private static void CreateTopBarOptions()
@@ -163,8 +163,8 @@ public static class SAINEditor
         style.alignment = TextAnchor.MiddleCenter;
 
         bool advancedEnabled = PresetHandler.EditorDefaults.AdvancedBotConfigs;
-        string status = advancedEnabled ? "ON" : "OFF";
-        bool newValue = GUI.Toggle(AdvRect, advancedEnabled, $"Advanced Settings: [{status}]", GetStyle(Style.botTypeGrid));
+        string status = advancedEnabled ? "开" : "关";
+        bool newValue = GUI.Toggle(AdvRect, advancedEnabled, $"高级设置：[{status}]", GetStyle(Style.botTypeGrid));
         if (advancedEnabled != newValue)
         {
             PlaySound(EUISoundType.MenuEscape);

@@ -11,8 +11,8 @@ public static class BotPersonalityEditor
     public static void PersonalityMenu()
     {
         string toolTip =
-            $"Apply Values set below to Personalities. "
-            + $"Saves edited values to the SPT server for preset '{SAINPlugin.LoadedPreset.Info.Name}'";
+            $"将下方数值应用到所选性格。"
+            + $"改动会保存到 SPT 服务器端（预设 '{SAINPlugin.LoadedPreset.Info.Name}'）";
 
         if (BuilderClass.SaveChanges(ConfigEditingTracker.GetUnsavedValuesString(), 35))
         {

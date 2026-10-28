@@ -4,11 +4,15 @@ using SAIN.Helpers;
 using SAIN.Plugin;
 using SAIN.Preset.Shared.Attributes;
 using SAIN.Preset.Shared.GlobalSettings;
+using SAIN.Preset.Shared.Localization;
 
 namespace SAIN.Attributes;
 
 public sealed class ConfigInfoClass
 {
+    /// <summary>Category label used when a member has no <see cref="CategoryAttribute"/>.</summary>
+    public const string NoCategory = "其他";
+
     public ConfigInfoClass(MemberInfo member)
     {
         MemberInfo = member;
@@ -102,9 +106,9 @@ public sealed class ConfigInfoClass
         }
 
         NameAndDescriptionAttribute nameDescription = Get<NameAndDescriptionAttribute>();
-        Name = nameDescription?.Name ?? Get<NameAttribute>()?.Value ?? member.Name;
-        Description = nameDescription?.Description ?? Get<DescriptionAttribute>()?.Value ?? string.Empty;
-        Category = Get<CategoryAttribute>()?.Value ?? "None";
+        Name = SainLoc.T(nameDescription?.Name ?? Get<NameAttribute>()?.Value ?? member.Name);
+        Description = SainLoc.T(nameDescription?.Description ?? Get<DescriptionAttribute>()?.Value) ?? string.Empty;
+        Category = SainLoc.T(Get<CategoryAttribute>()?.Value) ?? NoCategory;
 
         GUIValuesAttribute GUIValues = Get<GUIValuesAttribute>();
         if (GUIValues != null)

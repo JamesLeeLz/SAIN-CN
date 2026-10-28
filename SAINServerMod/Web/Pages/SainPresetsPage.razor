@@ -6,7 +6,7 @@
 @inject PresetService PresetService
 @inject ISnackbar Snackbar
 
-<PageTitle>SAIN Presets</PageTitle>
+<PageTitle>SAIN 预设</PageTitle>
 <HeadContent>
     <link rel="stylesheet" href="/SAIN/css/sain.css" />
 </HeadContent>
@@ -21,42 +21,42 @@
                         <MudIcon Icon="@Icons.Material.Filled.Tune" Color="Color.Warning" Size="Size.Large" />
                     </div>
                     <div>
-                        <MudText Typo="Typo.h5" Class="spt-title">SAIN Presets</MudText>
+                        <MudText Typo="Typo.h5" Class="spt-title">SAIN 预设</MudText>
                         <MudText Typo="Typo.caption" Class="spt-muted">
                             @if (_bundle != null)
                             {
-                                @($"Editing {_bundle.Info.Name}")
+                                @($"正在编辑 {_bundle.Info.Name}")
                                 @if (_opened!.IsNewCustom)
                                 {
-                                    <span> (a default, saving creates an editable copy)</span>
+                                    <span>（默认预设，保存后将创建可编辑副本）</span>
                                 }
                             }
                             else
                             {
-                                <text>Pick a preset to edit. Default presets clone into an editable copy on first edit.</text>
+                                <text>请选择要编辑的预设。默认预设会在首次编辑时克隆为可编辑副本。</text>
                             }
                         </MudText>
                     </div>
                 </MudStack>
                 <MudStack Row AlignItems="AlignItems.Center" Spacing="3">
                     <div class="sain-stat">
-                        <MudText Typo="Typo.caption">Presets</MudText>
+                        <MudText Typo="Typo.caption">预设</MudText>
                         <MudText Typo="Typo.h5">@_items.Count</MudText>
                     </div>
                     <div class="sain-stat">
-                        <MudText Typo="Typo.caption">Custom</MudText>
+                        <MudText Typo="Typo.caption">自定义</MudText>
                         <MudText Typo="Typo.h5">@_items.Count(i => i.IsCustom)</MudText>
                     </div>
                     @if (_bundle != null)
                     {
                         @if (_dirty)
                         {
-                            <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Filled">Unsaved changes</MudChip>
+                            <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Filled">未保存的更改</MudChip>
                         }
-                        <MudSwitch T="bool" @bind-Value="_showAdvanced" Color="Color.Primary" Label="Advanced" />
-                        <MudSwitch T="bool" @bind-Value="_showDeveloper" Color="Color.Secondary" Label="Developer" />
+                        <MudSwitch T="bool" @bind-Value="_showAdvanced" Color="Color.Primary" Label="高级" />
+                        <MudSwitch T="bool" @bind-Value="_showDeveloper" Color="Color.Secondary" Label="开发者" />
                         <MudButton Variant="Variant.Filled" Color="Color.Warning" StartIcon="@Icons.Material.Filled.Save"
-                                   OnClick="SaveAsync">Save</MudButton>
+                                   OnClick="SaveAsync">保存</MudButton>
                     }
                 </MudStack>
             </MudStack>
@@ -67,7 +67,7 @@
                 <MudPaper Elevation="0" Class="spt-panel pa-4">
                     <MudList T="string" SelectedValue="_selectedName" SelectedValueChanged="SelectAsync" Dense="true" Color="Color.Primary">
                         <MudListSubheader>
-                            <MudText Typo="Typo.overline" Class="spt-muted">Default</MudText>
+                            <MudText Typo="Typo.overline" Class="spt-muted">默认</MudText>
                         </MudListSubheader>
                         @foreach (var item in _items.Where(i => !i.IsCustom))
                         {
@@ -77,10 +77,10 @@
                                         <MudText Typo="Typo.body2">@item.Name</MudText>
                                         @if (item.Disabled)
                                         {
-                                            <MudChip T="string" Size="Size.Small" Color="Color.Default" Variant="Variant.Outlined">Hidden</MudChip>
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Default" Variant="Variant.Outlined">已隐藏</MudChip>
                                         }
                                     </div>
-                                    <MudTooltip Text="Duplicate">
+                                    <MudTooltip Text="复制">
                                         <MudIconButton Icon="@Icons.Material.Outlined.ContentCopy" Size="Size.Small"
                                                        OnClick="@(() => DuplicateAsync(item.Name))" OnClick:stopPropagation="true" />
                                     </MudTooltip>
@@ -88,12 +88,12 @@
                             </MudListItem>
                         }
                         <MudListSubheader>
-                            <MudText Typo="Typo.overline" Class="spt-muted">Custom</MudText>
+                            <MudText Typo="Typo.overline" Class="spt-muted">自定义</MudText>
                         </MudListSubheader>
                         @if (!_items.Any(i => i.IsCustom))
                         {
                             <MudListItem T="string" Disabled="true">
-                                <MudText Typo="Typo.caption" Class="spt-muted">None yet</MudText>
+                                <MudText Typo="Typo.caption" Class="spt-muted">暂无</MudText>
                             </MudListItem>
                         }
                         @foreach (var item in _items.Where(i => i.IsCustom))
@@ -102,7 +102,7 @@
                                 <div class="sain-preset-item">
                                     <MudText Typo="Typo.body2">@item.Name</MudText>
                                     <span>
-                                        <MudTooltip Text="Duplicate">
+                                        <MudTooltip Text="复制">
                                             <MudIconButton Icon="@Icons.Material.Outlined.ContentCopy" Size="Size.Small"
                                                            OnClick="@(() => DuplicateAsync(item.Name))" OnClick:stopPropagation="true" />
                                         </MudTooltip>
@@ -115,7 +115,7 @@
                                         }
                                         else
                                         {
-                                            <MudTooltip Text="Delete">
+                                            <MudTooltip Text="删除">
                                                 <MudIconButton Icon="@Icons.Material.Outlined.Delete" Size="Size.Small" Color="Color.Error"
                                                                OnClick="@(() => _pendingDelete = item.Name)" OnClick:stopPropagation="true" />
                                             </MudTooltip>
@@ -129,10 +129,10 @@
                     <MudDivider Class="my-4" />
 
                     <div class="sain-new-preset">
-                        <MudText Typo="Typo.overline" Class="spt-muted">New preset</MudText>
-                        <MudTextField T="string" @bind-Value="_newName" Placeholder="Name" Variant="Variant.Outlined"
+                        <MudText Typo="Typo.overline" Class="spt-muted">新建预设</MudText>
+                        <MudTextField T="string" @bind-Value="_newName" Placeholder="名称" Variant="Variant.Outlined"
                                       Margin="Margin.Dense" />
-                        <MudSelect T="string" @bind-Value="_baseName" Label="Based on" Variant="Variant.Outlined"
+                        <MudSelect T="string" @bind-Value="_baseName" Label="基于" Variant="Variant.Outlined"
                                    Margin="Margin.Dense" Dense="true">
                             @foreach (var def in _items.Where(i => !i.IsCustom))
                             {
@@ -140,7 +140,7 @@
                             }
                         </MudSelect>
                         <MudButton Variant="Variant.Filled" Color="Color.Warning" StartIcon="@Icons.Material.Filled.Add"
-                                   FullWidth="true" OnClick="CreateAsync">Create</MudButton>
+                                   FullWidth="true" OnClick="CreateAsync">创建</MudButton>
                     </div>
                 </MudPaper>
             </div>
@@ -159,7 +159,7 @@
                     {
                         <div class="sain-empty">
                             <MudIcon Icon="@Icons.Material.Outlined.TouchApp" Size="Size.Large" Class="spt-muted" />
-                            <MudText Typo="Typo.body1" Class="spt-muted mt-2">Select a preset from the left to start editing.</MudText>
+                            <MudText Typo="Typo.body1" Class="spt-muted mt-2">从左侧选择一个预设以开始编辑。</MudText>
                         </div>
                     }
                 </MudPaper>
@@ -219,7 +219,7 @@
         }
         if (_dirty)
         {
-            Snackbar.Add("Discarded unsaved changes.", Severity.Info);
+            Snackbar.Add("已放弃未保存的更改。", Severity.Info);
         }
         _selectedName = name;
         _opened = await Presets.OpenAsync(name);
@@ -241,7 +241,7 @@
         }
         if (string.IsNullOrWhiteSpace(_bundle.Info.Name))
         {
-            Snackbar.Add("Preset needs a name.", Severity.Warning);
+            Snackbar.Add("预设需要名称。", Severity.Warning);
             return;
         }
 
@@ -255,7 +255,7 @@
         var renamedFrom = _opened.IsNewCustom ? null : _opened.OriginalName;
         var savedName = _bundle.Info.Name;
         await Presets.SaveAsync(_bundle, renamedFrom);
-        Snackbar.Add($"Saved '{savedName}'. Connected game clients will reload it.", Severity.Success);
+        Snackbar.Add($"已保存“{savedName}”。已连接的游戏客户端将重新加载。", Severity.Success);
 
         Reload();
         await SelectAsync(savedName); // re-open as an existing custom so further edits don't re-clone
@@ -266,12 +266,12 @@
     {
         if (string.IsNullOrWhiteSpace(_newName) || string.IsNullOrWhiteSpace(_baseName))
         {
-            Snackbar.Add("Enter a name and a base preset.", Severity.Warning);
+            Snackbar.Add("请输入名称和基础预设。", Severity.Warning);
             return;
         }
         if (Presets.CustomExists(_newName))
         {
-            Snackbar.Add($"A custom preset named '{_newName}' already exists.", Severity.Warning);
+            Snackbar.Add($"名为“{_newName}”的自定义预设已存在。", Severity.Warning);
             return;
         }
         var created = await Presets.DuplicateAsync(_baseName, _newName.Trim());
@@ -280,7 +280,7 @@
             _newName = string.Empty;
             Reload();
             await SelectAsync(created);
-            Snackbar.Add($"Created '{created}'.", Severity.Success);
+            Snackbar.Add($"已创建“{created}”。", Severity.Success);
         }
     }
 
@@ -297,7 +297,7 @@
         {
             Reload();
             await SelectAsync(created);
-            Snackbar.Add($"Duplicated to '{created}'.", Severity.Success);
+            Snackbar.Add($"已复制为“{created}”。", Severity.Success);
         }
     }
 
@@ -314,7 +314,7 @@
                 _dirty = false;
             }
             Reload();
-            Snackbar.Add($"Deleted '{name}'.", Severity.Success);
+            Snackbar.Add($"已删除“{name}”。", Severity.Success);
         }
     }
 }

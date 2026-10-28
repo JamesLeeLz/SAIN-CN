@@ -6,6 +6,7 @@ using SAIN.Plugin;
 using SAIN.Preset;
 using SAIN.Preset.GlobalSettings.Categories;
 using SAIN.Preset.Shared.Enums;
+using SAIN.Preset.Shared.Localization;
 using UnityEngine;
 using static SAIN.Editor.SAINLayout;
 
@@ -199,7 +200,7 @@ public static class ModifyLists
         {
             bool toggleValue = Toggle(
                 list.Contains(value),
-                new GUIContent(name ?? value.ToString(), description),
+                new GUIContent(SainLoc.T(name ?? value.ToString()), SainLoc.T(description)),
                 GetStyle(Style.selectionList),
                 EUISoundType.MenuCheckBox,
                 options

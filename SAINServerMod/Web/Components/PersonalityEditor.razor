@@ -3,7 +3,7 @@
 @using SAIN.Preset.Shared.Personalities.BasePersonality
 
 <MudStack Row Spacing="3" AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Class="mb-3">
-    <MudSelect T="EPersonality" Value="_selected" ValueChanged="OnSelected" Label="Personality"
+    <MudSelect T="EPersonality" Value="_selected" ValueChanged="OnSelected" Label="性格"
                Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true" Style="min-width:220px;">
         @foreach (var key in _keys)
         {
@@ -22,7 +22,7 @@
 }
 else
 {
-    <MudText Typo="Typo.caption" Class="spt-muted">This preset has no personality data.</MudText>
+    <MudText Typo="Typo.caption" Class="spt-muted">此预设没有性格数据。</MudText>
 }
 
 @code {

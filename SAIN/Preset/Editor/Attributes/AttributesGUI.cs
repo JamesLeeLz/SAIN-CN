@@ -209,7 +209,7 @@ public class AttributesGUI
         foreach (KeyValuePair<ESuppressionState, SuppressionConfig> kvp in suppDict)
         {
             BeginHorizontal(150f);
-            string suppStateString = $"Suppression State: {kvp.Key}";
+            string suppStateString = $"压制状态：{kvp.Key}";
             if (ExpandableList(suppStateString, null, PresetHandler.EditorDefaults.ConfigEntryHeight, 1, _defaultEntryConfig)) { }
             EndHorizontal(150f);
         }
@@ -222,7 +222,7 @@ public class AttributesGUI
         {
             entryConfig ??= _defaultEntryConfig;
             StartConfigEntry(listDepth, entryConfig, info);
-            Label($"{info.Name}: ", Width(80), Height(PresetHandler.EditorDefaults.ConfigEntryHeight));
+            Label($"{info.Name}：", Width(80), Height(PresetHandler.EditorDefaults.ConfigEntryHeight));
             Box(value, Height(PresetHandler.EditorDefaults.ConfigEntryHeight));
             EndHorizontal(100f);
         }
@@ -479,7 +479,7 @@ public class AttributesGUI
             _labelStyle.alignment = TextAnchor.MiddleCenter;
             Space(horizDepth);
             Box(
-                info.AdvancedOption ? "Advanced" : "Developer",
+                info.AdvancedOption ? "高级" : "开发者",
                 _labelStyle,
                 Width(70f),
                 Height(PresetHandler.EditorDefaults.ConfigEntryHeight)
@@ -538,7 +538,7 @@ public class AttributesGUI
         {
             if (!useSimpleLayout)
             {
-                value = Toggle((bool)value, (bool)value ? "On" : "Off", EUISoundType.MenuCheckBox, entryConfig.Toggle);
+                value = Toggle((bool)value, (bool)value ? "开" : "关", EUISoundType.MenuCheckBox, entryConfig.Toggle);
             }
             result = value.ToString();
         }
@@ -564,7 +564,7 @@ public class AttributesGUI
 
         if (useSimpleLayout && info.ValueType == typeof(bool))
         {
-            value = Toggle((bool)value, (bool)value ? "On" : "Off", EUISoundType.MenuCheckBox, layoutParams);
+            value = Toggle((bool)value, (bool)value ? "开" : "关", EUISoundType.MenuCheckBox, layoutParams);
         }
         else
         {
@@ -591,7 +591,7 @@ public class AttributesGUI
         var defaultValue = info.GetDefault(settingsObject);
         if (defaultValue != null)
         {
-            if (Button("Reset", "Reset To Default Value", EUISoundType.ButtonClick, layoutParams))
+            if (Button("重置", "恢复为默认值", EUISoundType.ButtonClick, layoutParams))
             {
                 value = defaultValue;
                 ConfigEditingTracker.Remove(info);
@@ -599,7 +599,7 @@ public class AttributesGUI
         }
         else
         {
-            Box(" ", "No Default Value is assigned to this option.", layoutParams);
+            Box(" ", "此选项没有分配默认值。", layoutParams);
         }
 
         if (beginHoriz)
@@ -674,7 +674,7 @@ public class AttributesGUI
     {
         BeginHorizontal(150);
         string name = stealthValue.Name;
-        string description = $"The Stealth Value for {name}";
+        string description = $"{name} 的隐蔽值";
         float fvalue = stealthValue.StealthValue;
         float min = 0.1f;
         float max = 2;
@@ -907,7 +907,7 @@ public class AttributesGUI
         BeginHorizontal(200f);
 
         string name = nameof(values.DistanceModifier);
-        string description = "How much to randomize the distance that a bot thinks a sound originated from.";
+        string description = "机器人认为声音来源距离的随机化幅度。";
         float fvalue = values.DistanceModifier;
         float min = 0f;
         float max = 20f;
@@ -994,7 +994,7 @@ public class AttributesGUI
 
     private static bool ResetButton()
     {
-        return Button("Reset", EUISoundType.ButtonClick, _defaultEntryConfig.Reset);
+        return Button("重置", EUISoundType.ButtonClick, _defaultEntryConfig.Reset);
     }
 
     private static float Slider(string name, string description, float value, float min, float max, float rounding)
@@ -1201,12 +1201,12 @@ public class AttributesGUI
 
     private static void DrawCategory(ConfigParams configParams, ConfigInfoClass configInfo, string category)
     {
-        if (category == "None")
+        if (category == ConfigInfoClass.NoCategory)
         {
             return;
         }
         BeginHorizontal(0f);
-        DisplayString($"    Category: {category}    ", configParams.ListDepth, configParams.EntryConfig, 15f);
+        DisplayString($"    分类：{category}    ", configParams.ListDepth, configParams.EntryConfig, 15f);
         FlexibleSpace();
         EndHorizontal();
     }
